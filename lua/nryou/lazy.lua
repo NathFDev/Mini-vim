@@ -16,6 +16,7 @@ require("lazy").setup({
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			-- LSP Support
 			{ "neovim/nvim-lspconfig" }, -- Required
@@ -40,9 +41,15 @@ require("lazy").setup({
 	},
 
 	-- Treesitter
-	{ "JoosepAlviste/nvim-ts-context-commentstring" },
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	{ "nvim-treesitter/nvim-treesitter-context" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter-context" },
+			{ "JoosepAlviste/nvim-ts-context-commentstring" },
+		},
+	},
 
 	-- Navigation
 	{
@@ -51,36 +58,45 @@ require("lazy").setup({
 		lazy = false,
 		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
-	{ "ThePrimeagen/harpoon" },
-	{ "nvim-telescope/telescope.nvim" },
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "ThePrimeagen/harpoon", lazy = true },
+	{
+		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
+		dependencies = {
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
+	},
 
 	-- Git
-	{ "lewis6991/gitsigns.nvim" },
-	{ "kdheepak/lazygit.nvim" },
+	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
+	{ "kdheepak/lazygit.nvim", cmd = "LazyGit" },
 
 	-- Debugging
-	{ "mfussenegger/nvim-dap" },
-	{ "rcarriga/nvim-dap-ui" },
-	{ "theHamsta/nvim-dap-virtual-text" },
-	{ "nvim-telescope/telescope-dap.nvim" },
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "rcarriga/nvim-dap-ui" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{ "nvim-telescope/telescope-dap.nvim" },
+		},
+	},
 
 	-- UI
 	{ "nvim-lualine/lualine.nvim" },
-	{ "lukas-reineke/indent-blankline" },
+	{ "lukas-reineke/indent-blankline.nvim", main = "ibl" },
 	{ "catppuccin/nvim", priotity = 1000 },
 	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
 
 	-- Terminal
-	{ "akinsho/toggleterm" },
+	{ "akinsho/toggleterm.nvim", lazy = true },
 
 	-- Misc
-	{ "numToStr/Comment.nvim" },
-	{ "windwp/nvim-autopairs" },
-	{ "uga-rosa/ccc.nvim" },
-	{ "mbbill/undotree" },
-	{ "nvim-pack/nvim-spectre" },
-	{ "kylechui/nvim-surround" },
-	{ "RRethy/vim-illuminate" },
+	{ "numToStr/Comment.nvim", event = { "BufReadPre", "BufNewFile" } },
+	{ "windwp/nvim-autopairs", event = { "BufReadPre", "BufNewFile" } },
+	{ "uga-rosa/ccc.nvim", event = { "BufReadPre", "BufNewFile" } },
+	{ "mbbill/undotree", cmd = "UndotreeToggle" },
+	{ "nvim-pack/nvim-spectre", lazy = true },
+	{ "kylechui/nvim-surround", event = { "BufReadPre", "BufNewFile" } },
+	{ "RRethy/vim-illuminate", event = { "BufReadPre", "BufNewFile" } },
 	{ "nvim-lua/plenary.nvim" },
 })
