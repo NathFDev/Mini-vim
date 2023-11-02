@@ -67,7 +67,6 @@ require("lazy").setup({
 
 	-- UI
 	{ "nvim-lualine/lualine.nvim" },
-	{ "stevearc/dressing.nvim" },
 	{ "lukas-reineke/indent-blankline" },
 	{ "catppuccin/nvim", priotity = 1000 },
 	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
